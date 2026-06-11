@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>পদার্থবিজ্ঞান – একাদশ-দ্বাদশ শ্রেণী</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f0f4ff;
+  --white: #ffffff;
+  --panel: #f8faff;
+  --border: #dde3f0;
+  --accent: #2563eb;
+  --accent2: #7c3aed;
+  --green: #059669;
+  --orange: #ea580c;
+  --red: #dc2626;
+  --text: #1e293b;
+  --subtext: #475569;
+  --muted: #94a3b8;
+  --shadow: 0 2px 12px rgba(37,99,235,0.08);
+  --shadow-lg: 0 8px 32px rgba(37,99,235,0.13);
+}
+
+body {
+  font-family: 'Hind Siliguri', 'Noto Sans Bengali', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── TOP NAV ── */
+nav {
+  background: var(--white);
+  border-bottom: 2px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 28px;
+  flex-shrink: 0;
+}
+
+.nav-icon {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.nav-brand h1 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.nav-brand p {
+  font-size: 0.62rem;
+  color: var(--muted);
+}
+
+/* nav-chapters removed */
+
+/* ── 3-DOT MENU ── */
+.three-dot-wrap {
+  position: relative;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.three-dot-btn {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  gap: 3px;
+  flex-direction: column;
+  transition: all 0.15s;
+  padding: 0;
+}
+
+.three-dot-btn:hover {
+  border-color: var(--accent);
+  background: rgba(37,99,235,0.05);
+}
+
+.three-dot-btn span {
+  display: block;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--subtext);
+  transition: background 0.15s;
+}
+
+.three-dot-btn:hover span,
+.three-dot-btn.open span { background: var(--accent); }
+
+.chapter-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 280px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  z-index: 999;
+  max-height: 85vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  animation: dropIn 0.15s ease;
+}
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.chapter-dropdown.open { display: block; }
+
+.dropdown-header {
+  padding: 11px 16px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  font-family: 'Hind Siliguri', sans-serif;
+  transition: background 0.12s;
+  border-bottom: 1px solid var(--border);
+}
+
+.dropdown-item:last-child { border-bottom: none; }
+
+.dropdown-item:hover { background: var(--bg); }
+
+.dropdown-item.active {
+  background: rgba(37,99,235,0.06);
+}
+
+.dropdown-item.locked {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.di-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.di-text { flex: 1; min-width: 0; }
+.di-num  { font-size: 0.6rem; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; }
+.di-title{ font-size: 0.8rem; font-weight: 600; color: var(--text); margin-top: 1px; line-height: 1.3; }
+.di-sub  { font-size: 0.65rem; color: var(--muted); margin-top: 1px; }
+
+.di-badge {
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: rgba(37,99,235,0.08);
+  color: var(--accent);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.di-badge.locked-badge {
+  background: rgba(148,163,184,0.12);
+  color: var(--muted);
+}
+
+.di-check {
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-left: 2px;
+  flex-shrink: 0;
+}
+
+/* ── LAYOUT ── */
+.app {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  height: calc(100vh - 56px);
+}
+
+/* sidebar removed */
+
+/* ── MAIN SIM AREA ── */
+.main {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sim-header {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow);
+}
+
+.sim-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.sim-header h2 { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+.sim-header p { font-size: 0.75rem; color: var(--subtext); margin-top: 3px; }
+
+.sim-nav-btns {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.nav-btn {
+  padding: 7px 14px;
+  border-radius: 7px;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--subtext);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+.nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* ── SIM BODY ── */
+.sim-body {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+}
+
+.controls-panel {
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 16px 14px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--shadow);
+}
+
+.controls-panel::-webkit-scrollbar { width: 3px; }
+.controls-panel::-webkit-scrollbar-thumb { background: var(--border); }
+
+.ctrl-section {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.param {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 11px;
+}
+
+.param-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 5px;
+}
+
+.param label { font-size: 0.78rem; font-weight: 600; color: var(--text); }
+.param .sym { font-size: 0.63rem; color: var(--muted); display: block; margin-top: 1px; }
+.param .pval { font-family: 'Courier New', monospace; font-size: 0.85rem; font-weight: 700; color: var(--accent); }
+
+input[type=range] {
+  width: 100%; -webkit-appearance: none;
+  height: 4px; border-radius: 2px;
+  background: var(--border); outline: none; cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px;
+  border-radius: 50%; background: var(--accent);
+  border: 2px solid var(--white);
+  box-shadow: 0 1px 4px rgba(37,99,235,0.3);
+  transition: transform 0.1s;
+}
+input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.3); }
+
+.btn-group { display: flex; gap: 7px; margin-top: 10px; }
+
+.btn-primary {
+  flex: 1; padding: 10px 0;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff; border: none; border-radius: 8px;
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 0.85rem; font-weight: 700;
+  cursor: pointer; transition: opacity 0.15s, transform 0.1s;
+  box-shadow: 0 3px 10px rgba(37,99,235,0.25);
+}
+
+.btn-secondary {
+  flex: 1; padding: 10px 0;
+  background: var(--bg); color: var(--subtext);
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+}
+
+.btn-primary:active, .btn-secondary:active { transform: scale(0.97); }
+.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* results */
+.results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px; }
+
+.res-box {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.res-box .rl { font-size: 0.62rem; color: var(--muted); margin-bottom: 2px; }
+.res-box .rv { font-family: 'Courier New', monospace; font-size: 0.84rem; font-weight: 700; color: var(--green); }
+
+/* canvas area */
+.canvas-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+}
+
+.canvas-card {
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  flex: 1;
+  min-height: 320px;
+  position: relative;
+}
+
+canvas { display: block; }
+
+.graph-card {
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  height: 160px;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+
+.graph-label {
+  position: absolute; top: 7px; left: 10px;
+  font-size: 0.6rem; color: var(--muted);
+  font-family: 'Courier New', monospace;
+  pointer-events: none;
+}
+
+/* toggle */
+.toggle-row {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 8px; padding: 9px 11px;
+}
+.toggle-row label { font-size: 0.78rem; font-weight: 600; color: var(--text); }
+
+.switch { position: relative; width: 40px; height: 22px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider-sw {
+  position: absolute; inset: 0;
+  background: var(--border); border-radius: 22px; cursor: pointer;
+  transition: background 0.2s;
+}
+.slider-sw::before {
+  content: ''; position: absolute;
+  width: 16px; height: 16px; left: 3px; top: 3px;
+  background: #fff; border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+.switch input:checked + .slider-sw { background: var(--accent); }
+.switch input:checked + .slider-sw::before { transform: translateX(18px); }
+
+/* formula box */
+.formula-box {
+  background: rgba(37,99,235,0.04);
+  border: 1px solid rgba(37,99,235,0.15);
+  border-radius: 8px;
+  padding: 8px 11px;
+  font-size: 0.7rem;
+  color: var(--accent);
+  font-family: 'Courier New', monospace;
+  line-height: 1.7;
+  margin-top: 4px;
+}
+
+/* chapter pages */
+.chapter-page { display: none; }
+.chapter-page.active { display: contents; }
+
+/* ── SETTINGS / THEME ── */
+.dropdown-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+.dropdown-settings-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: background 0.12s;
+}
+.dropdown-settings-btn:hover { background: var(--bg); }
+.dropdown-settings-btn .ds-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: rgba(100,116,139,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* Theme panel overlay */
+.theme-panel-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.35);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.15s ease;
+}
+.theme-panel-overlay.open { display: flex; }
+
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+
+.theme-panel {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  width: 340px;
+  max-width: 95vw;
+  overflow: hidden;
+  animation: slideUp 0.18s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.theme-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+}
+.theme-panel-header h3 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.theme-panel-close {
+  width: 28px; height: 28px;
+  border: none; border-radius: 6px;
+  background: var(--bg);
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--muted);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.12s;
+}
+.theme-panel-close:hover { background: var(--border); color: var(--text); }
+
+.theme-section-label {
+  padding: 12px 18px 6px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.theme-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 6px 16px 16px;
+}
+
+.theme-card {
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+.theme-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.theme-card.active { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+
+.theme-preview {
+  width: 100%;
+  height: 36px;
+  border-radius: 6px;
+  margin-bottom: 7px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  overflow: hidden;
+}
+.tp-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.tp-line { height: 4px; flex: 1; border-radius: 2px; }
+
+.theme-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text);
+  display: block;
+}
+.theme-desc {
+  font-size: 0.6rem;
+  color: var(--muted);
+  display: block;
+  margin-top: 2px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-icon">⚛</div>
+    <div>
+      <h1>পদার্থবিজ্ঞান</h1>
+    </div>
+  </div>
+  <!-- ৩-ডট মেনু -->
+  <div class="three-dot-wrap" id="threeDotWrap">
+    <button class="three-dot-btn" id="threeDotBtn" title="অধ্যায় বেছে নিন">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="chapter-dropdown" id="chapterDropdown">
+      <div class="dropdown-header">📚 অধ্যায় নির্বাচন করুন</div>
+      <div id="dropdownItems"></div>
+      <div class="dropdown-divider"></div>
+      <button class="dropdown-settings-btn" id="openSettingsBtn">
+        <div class="ds-icon">⚙️</div>
+        সেটিংস
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Theme Panel -->
+<div class="theme-panel-overlay" id="themePanelOverlay">
+  <div class="theme-panel">
+    <div class="theme-panel-header">
+      <h3>🎨 থিম নির্বাচন</h3>
+      <button class="theme-panel-close" id="closePanelBtn">✕</button>
+    </div>
+    <div class="theme-section-label">রঙের থিম বেছে নিন</div>
+    <div class="theme-grid" id="themeGrid"></div>
+  </div>
+</div>
+
+<div class="app">
+
+  <!-- MAIN -->
+  <div class="main" id="mainArea">
+    <!-- dynamically filled -->
+  </div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+//  CHAPTER DEFINITIONS
+// ═══════════════════════════════════════════
+const chapters = [
+  {
+    id: 'projectile',
+    num: 'অধ্যায় ৪',
+    title: 'নিউটনিয়ান বলবিদ্যা',
+    sub: 'প্রাসের গতি',
+    icon: '🎯',
+    color: '#2563eb',
+    tag: 'বলবিদ্যা',
+    simTitle: 'প্রাসের সমীকরণ',
+    simDesc: 'বায়ু প্রতিরোধসহ প্রাস গতির অনুকরণ',
+    formulas: ['x = v₀cos(θ)·t', 'y = v₀sin(θ)·t − ½gt²', 'Fড্র্যাগ = ½ρCdAv²'],
+    controls: [
+      { id:'p_v0',    label:'প্রাথমিক বেগ',    sym:'v₀ [মি/সে]',  min:0.5, max:30, step:0.5,  val:10,   fmt: v=>(+v).toFixed(1) },
+      { id:'p_theta', label:'নিক্ষেপ কোণ',    sym:'θ [ডিগ্রি]', min:1,   max:89, step:1,    val:45,   fmt: v=>Math.round(+v)+'°' },
+      { id:'p_y0',    label:'প্রারম্ভিক উচ্চতা', sym:'y₀ [মি]',   min:0,   max:10, step:0.1,  val:0.1,  fmt: v=>(+v).toFixed(1) },
+      { id:'p_mass',  label:'ভর',               sym:'m [কেজি]',   min:0.01,max:2,  step:0.01, val:0.1,  fmt: v=>(+v).toFixed(2) },
+      { id:'p_g',     label:'অভিকর্ষজ ত্বরণ',  sym:'g [মি/সে²]', min:1,   max:25, step:0.1,  val:9.8,  fmt: v=>(+v).toFixed(1) },
+    ],
+    extraToggles: [
+      { id:'p_air', label:'বায়ু প্রতিরোধ', checked: true }
+    ],
+    extraControls: [
+      { id:'p_cd',  label:'টেনে সহগ',   sym:'Cd',         min:0.01,max:2,  step:0.01, val:0.47, fmt: v=>(+v).toFixed(2) },
+      { id:'p_rho', label:'বায়ুর ঘনত্ব', sym:'ρ [কেজি/মি³]', min:0.1,max:3,  step:0.01, val:1.22, fmt: v=>(+v).toFixed(2) },
+      { id:'p_r',   label:'ব্যাসার্ধ',   sym:'r [মি]',    min:0.01,max:0.3,step:0.01, val:0.05, fmt: v=>(+v).toFixed(2) },
+    ],
+    results: [
+      { id:'pr_maxh',  label:'সর্বোচ্চ উচ্চতা' },
+      { id:'pr_range', label:'পাল্লা' },
+      { id:'pr_time',  label:'উড়ানের সময়' },
+      { id:'pr_vf',    label:'আঘাতের বেগ' },
+    ],
+    hasGraph: true,
+    graphLabel: 'উচ্চতা [মি] বনাম সময় [সে]',
+  },
+  {
+    id: 'gravity',
+    num: 'অধ্যায় ৬',
+    title: 'মহাকর্ষ ও অভিকর্ষ',
+    sub: 'কক্ষপথ ও মহাকর্ষ বল',
+    icon: '🌍',
+    color: '#059669',
+    tag: 'মহাকর্ষ',
+    simTitle: 'কক্ষপথের সিমুলেশন',
+    simDesc: 'দুটি বস্তুর মধ্যে মহাকর্ষ বল ও বৃত্তাকার কক্ষপথ',
+    formulas: ['F = GMm/r²', 'v = √(GM/r)', 'T² ∝ r³  (কেপলার)'],
+    controls: [
+      { id:'g_M',  label:'কেন্দ্রীয় বস্তুর ভর', sym:'M [×10²⁴ কেজি]', min:0.1, max:20, step:0.1, val:5.97, fmt: v=>(+v).toFixed(2) },
+      { id:'g_m',  label:'কক্ষপথের বস্তুর ভর',  sym:'m [কেজি]',        min:1,   max:1000,step:1,  val:100,  fmt: v=>Math.round(+v) },
+      { id:'g_r',  label:'কক্ষপথের ব্যাসার্ধ',   sym:'r [×10⁶ মি]',    min:6.5, max:100, step:0.5, val:6.5,  fmt: v=>(+v).toFixed(1) },
+    ],
+    extraToggles: [],
+    extraControls: [],
+    results: [
+      { id:'gr_F',   label:'মহাকর্ষ বল (N)' },
+      { id:'gr_v',   label:'কক্ষীয় বেগ (মি/সে)' },
+      { id:'gr_T',   label:'পর্যায়কাল (মিনিট)' },
+      { id:'gr_g',   label:'g (মি/সে²)' },
+    ],
+    hasGraph: false,
+    graphLabel: '',
+  },
+  {
+    id: 'shm',
+    num: 'অধ্যায় ৭',
+    title: 'সরল স্পন্দন গতি',
+    sub: 'স্প্রিং ও দোলক',
+    icon: '🔄',
+    color: '#7c3aed',
+    tag: 'কম্পন',
+    simTitle: 'সরল স্পন্দনের সিমুলেশন',
+    simDesc: 'স্প্রিং-ভর সিস্টেমের SHM অনুকরণ',
+    formulas: ['x = A·cos(ωt + φ)', 'ω = √(k/m)', 'T = 2π√(m/k)'],
+    controls: [
+      { id:'s_k',   label:'স্প্রিং ধ্রুবক', sym:'k [N/মি]',    min:1,   max:200, step:1,   val:20,  fmt: v=>Math.round(+v) },
+      { id:'s_m',   label:'ভর',              sym:'m [কেজি]',   min:0.1, max:10,  step:0.1, val:1,   fmt: v=>(+v).toFixed(1) },
+      { id:'s_A',   label:'বিস্তার',         sym:'A [মি]',     min:0.1, max:3,   step:0.1, val:1,   fmt: v=>(+v).toFixed(1) },
+      { id:'s_damp',label:'ড্যাম্পিং',        sym:'b [N·s/মি]', min:0,   max:5,   step:0.1, val:0.3, fmt: v=>(+v).toFixed(1) },
+    ],
+    extraToggles: [],
+    extraControls: [],
+    results: [
+      { id:'sr_T',   label:'পর্যায়কাল (সে)' },
+      { id:'sr_f',   label:'কম্পাঙ্ক (Hz)' },
+      { id:'sr_w',   label:'কৌণিক বেগ (rad/s)' },
+      { id:'sr_Emax',label:'সর্বোচ্চ শক্তি (J)' },
+    ],
+    hasGraph: true,
+    graphLabel: 'সরণ [মি] বনাম সময় [সে]',
+  },
+  {
+    id: 'wave',
+    num: 'অধ্যায় ৮',
+    title: 'তরঙ্গ',
+    sub: 'তরঙ্গের বৈশিষ্ট্য ও ব্যতিচার',
+    icon: '〰️',
+    color: '#0891b2',
+    tag: 'তরঙ্গ',
+    simTitle: 'তরঙ্গের সিমুলেশন',
+    simDesc: 'তরঙ্গদৈর্ঘ্য, বিস্তার ও ব্যতিচার',
+    formulas: ['y = A·sin(kx − ωt)', 'v = λ·f', 'k = 2π/λ'],
+    controls: [
+      { id:'w_A',  label:'বিস্তার',       sym:'A [মি]',    min:0.1, max:2,   step:0.1, val:1,    fmt: v=>(+v).toFixed(1) },
+      { id:'w_lam',label:'তরঙ্গদৈর্ঘ্য', sym:'λ [মি]',    min:0.5, max:5,   step:0.1, val:2,    fmt: v=>(+v).toFixed(1) },
+      { id:'w_f',  label:'কম্পাঙ্ক',     sym:'f [Hz]',    min:0.1, max:5,   step:0.1, val:1,    fmt: v=>(+v).toFixed(1) },
+    ],
+    extraToggles: [
+      { id:'w_two', label:'দ্বিতীয় তরঙ্গ (ব্যতিচার)', checked: false }
+    ],
+    extraControls: [
+      { id:'w_phi', label:'দশা পার্থক্য', sym:'Δφ [°]', min:0, max:360, step:5, val:90, fmt: v=>Math.round(+v)+'°' },
+    ],
+    results: [
+      { id:'wr_v',  label:'তরঙ্গ বেগ (মি/সে)' },
+      { id:'wr_T',  label:'পর্যায়কাল (সে)' },
+      { id:'wr_k',  label:'তরঙ্গ সংখ্যা (rad/মি)' },
+      { id:'wr_w',  label:'কৌণিক কম্পাঙ্ক (rad/s)' },
+    ],
+    hasGraph: false,
+    graphLabel: '',
+  },
+];
+
+// ═══════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════
+let currentChId = 'projectile';
+let animId = null;
+let simState = null;
+
+// ═══════════════════════════════════════════
+//  BUILD UI
+// ═══════════════════════════════════════════
+/* buildSidebar removed */
+
+/* buildNavChapters removed */
+
+function buildMainArea(ch) {
+  stopSim();
+  const main = document.getElementById('mainArea');
+  const idx = chapters.findIndex(c => c.id === ch.id);
+
+  let controlsHTML = '';
+  controlsHTML += `<div class="ctrl-section">চলরাশি</div>`;
+  ch.controls.forEach(c => {
+    controlsHTML += `
+      <div class="param">
+        <div class="param-top">
+          <div><label>${c.label}</label><span class="sym">${c.sym}</span></div>
+          <span class="pval" id="${c.id}_disp">${c.fmt(c.val)}</span>
+        </div>
+        <input type="range" id="${c.id}" min="${c.min}" max="${c.max}" step="${c.step}" value="${c.val}">
+      </div>`;
+  });
+
+  if (ch.extraToggles.length) {
+    controlsHTML += `<div class="ctrl-section">বিকল্প</div>`;
+    ch.extraToggles.forEach(t => {
+      controlsHTML += `
+        <div class="toggle-row">
+          <label>${t.label}</label>
+          <label class="switch">
+            <input type="checkbox" id="${t.id}" ${t.checked ? 'checked' : ''}>
+            <span class="slider-sw"></span>
+          </label>
+        </div>`;
+    });
+    ch.extraControls.forEach(c => {
+      controlsHTML += `
+        <div class="param" id="${c.id}_wrap">
+          <div class="param-top">
+            <div><label>${c.label}</label><span class="sym">${c.sym}</span></div>
+            <span class="pval" id="${c.id}_disp">${c.fmt(c.val)}</span>
+          </div>
+          <input type="range" id="${c.id}" min="${c.min}" max="${c.max}" step="${c.step}" value="${c.val}">
+        </div>`;
+    });
+  }
+
+  controlsHTML += `<div class="ctrl-section">সূত্রাবলী</div>
+    <div class="formula-box">${ch.formulas.join('<br>')}</div>`;
+
+  let resultsHTML = `<div class="ctrl-section">ফলাফল</div><div class="results-grid">`;
+  ch.results.forEach(r => {
+    resultsHTML += `<div class="res-box"><div class="rl">${r.label}</div><div class="rv" id="${r.id}">—</div></div>`;
+  });
+  resultsHTML += `</div>`;
+
+  const graphHTML = ch.hasGraph ? `
+    <div class="graph-card">
+      <canvas id="graphCanvas"></canvas>
+      <span class="graph-label">${ch.graphLabel}</span>
+    </div>` : '';
+
+  main.innerHTML = `
+    <div class="sim-header">
+      <div class="sim-icon" style="background:${ch.color}22;">${ch.icon}</div>
+      <div>
+        <h2>${ch.simTitle}</h2>
+        <p>${ch.simDesc}</p>
+      </div>
+      <div class="sim-nav-btns">
+        <button class="nav-btn" id="btnPrev" ${idx === 0 ? 'disabled' : ''}>← আগের অধ্যায়</button>
+        <button class="nav-btn" id="btnNext" ${idx === chapters.length-1 ? 'disabled' : ''}>পরের অধ্যায় →</button>
+      </div>
+    </div>
+    <div class="sim-body">
+      <div class="controls-panel">
+        ${controlsHTML}
+        ${resultsHTML}
+        <div class="btn-group">
+          <button class="btn-primary" id="btnStart">▶ শুরু</button>
+          <button class="btn-secondary" id="btnReset">↺ রিসেট</button>
+        </div>
+      </div>
+      <div class="canvas-area">
+        <div class="canvas-card" id="simCard">
+          <canvas id="simCanvas" style="width:100%;height:100%;"></canvas>
+        </div>
+        ${graphHTML}
+      </div>
+    </div>`;
+
+  // wire sliders
+  [...ch.controls, ...ch.extraControls].forEach(c => {
+    const el = document.getElementById(c.id);
+    const disp = document.getElementById(c.id + '_disp');
+    if (el && disp) el.addEventListener('input', () => { disp.textContent = c.fmt(el.value); onParamChange(ch); });
+  });
+
+  // wire toggles
+  ch.extraToggles.forEach(t => {
+    const el = document.getElementById(t.id);
+    if (el) el.addEventListener('change', () => onToggleChange(ch));
+  });
+
+  document.getElementById('btnStart').addEventListener('click', () => startSim(ch));
+  document.getElementById('btnReset').addEventListener('click', () => resetSim(ch));
+  document.getElementById('btnPrev').addEventListener('click', () => {
+    if (idx > 0) switchChapter(chapters[idx-1].id);
+  });
+  document.getElementById('btnNext').addEventListener('click', () => {
+    if (idx < chapters.length-1) switchChapter(chapters[idx+1].id);
+  });
+
+  onToggleChange(ch);
+  resizeCanvases();
+  drawIdleState(ch);
+  onParamChange(ch);
+}
+
+function onToggleChange(ch) {
+  ch.extraToggles.forEach(t => {
+    const on = document.getElementById(t.id)?.checked;
+    ch.extraControls.forEach(c => {
+      const wrap = document.getElementById(c.id + '_wrap');
+      if (wrap) { wrap.style.opacity = on ? '1' : '0.35'; wrap.style.pointerEvents = on ? 'auto' : 'none'; }
+    });
+  });
+}
+
+function switchChapter(id) {
+  currentChId = id;
+    buildMainArea(chapters.find(c => c.id === id));
+}
+
+// ═══════════════════════════════════════════
+//  CANVAS
+// ═══════════════════════════════════════════
+function getCanvas() { return document.getElementById('simCanvas'); }
+function getCtx() { const c = getCanvas(); return c ? c.getContext('2d') : null; }
+function getGraph() { return document.getElementById('graphCanvas'); }
+function getGCtx() { const c = getGraph(); return c ? c.getContext('2d') : null; }
+
+function resizeCanvases() {
+  const card = document.getElementById('simCard');
+  const sc = getCanvas();
+  if (card && sc) { sc.width = card.clientWidth; sc.height = card.clientHeight; }
+  const gc = getGraph();
+  if (gc) { const p = gc.parentElement; gc.width = p.clientWidth; gc.height = p.clientHeight; }
+}
+
+window.addEventListener('resize', () => {
+  resizeCanvases();
+  const ch = chapters.find(c => c.id === currentChId);
+  if (simState && simState.done) { renderSim(ch); if (ch.hasGraph) renderGraph(ch); }
+  else if (!simState) drawIdleState(ch);
+});
+
+// ═══════════════════════════════════════════
+//  IDLE DRAW
+// ═══════════════════════════════════════════
+function drawIdleState(ch) {
+  const ctx = getCtx();
+  if (!ctx) return;
+  const W = ctx.canvas.width, H = ctx.canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#f8faff';
+  ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#cbd5e1';
+  ctx.font = `16px Hind Siliguri, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.fillText('▶ শুরু বোতাম চাপুন', W/2, H/2);
+  ctx.textAlign = 'left';
+  if (ch.id === 'gravity') drawGravityIdle(ctx, W, H);
+  if (ch.id === 'wave') drawWaveIdle(ctx, W, H, ch);
+  if (ch.id === 'shm') drawSHMIdle(ctx, W, H);
+}
+
+// ═══════════════════════════════════════════
+//  SIM CONTROL
+// ═══════════════════════════════════════════
+function startSim(ch) {
+  stopSim();
+  document.getElementById('btnStart').disabled = true;
+  ch.results.forEach(r => { const el = document.getElementById(r.id); if(el) el.textContent = '—'; });
+  simState = initSimState(ch);
+  if (!simState) return;
+  animateLoop(ch);
+}
+
+function resetSim(ch) {
+  stopSim();
+  simState = null;
+  document.getElementById('btnStart').disabled = false;
+  ch.results.forEach(r => { const el = document.getElementById(r.id); if(el) el.textContent = '—'; });
+  const gc = getGCtx();
+  if (gc) gc.clearRect(0, 0, gc.canvas.width, gc.canvas.height);
+  drawIdleState(ch);
+}
+
+function stopSim() {
+  if (animId) { cancelAnimationFrame(animId); animId = null; }
+}
+
+function animateLoop(ch) {
+  resizeCanvases();
+  for (let i = 0; i < 4; i++) stepSimState(ch);
+  renderSim(ch);
+  if (ch.hasGraph) renderGraph(ch);
+  if (!simState.done) animId = requestAnimationFrame(() => animateLoop(ch));
+  else { renderSim(ch); if (ch.hasGraph) renderGraph(ch); document.getElementById('btnStart').disabled = false; }
+}
+
+function onParamChange(ch) {
+  // instant recalc for static sims
+  if (ch.id === 'gravity') calcGravityResults(ch);
+  if (ch.id === 'wave') calcWaveResults(ch);
+  if (ch.id === 'shm') calcSHMResults(ch);
+  if (!simState) drawIdleState(ch);
+}
+
+function gv(id) { const el = document.getElementById(id); return el ? +el.value : 0; }
+function tc(id) { const el = document.getElementById(id); return el ? el.checked : false; }
+function setRes(id, val) { const el = document.getElementById(id); if(el) el.textContent = val; }
+
+// ═══════════════════════════════════════════
+//  PROJECTILE
+// ═══════════════════════════════════════════
+function initSimState(ch) {
+  if (ch.id === 'projectile') return initProjectile();
+  if (ch.id === 'gravity')    return initGravity();
+  if (ch.id === 'shm')        return initSHM();
+  if (ch.id === 'wave')       return initWave();
+  return null;
+}
+function stepSimState(ch) {
+  if (!simState || simState.done) return;
+  if (ch.id === 'projectile') stepProjectile();
+  if (ch.id === 'gravity')    stepGravity();
+  if (ch.id === 'shm')        stepSHM();
+  if (ch.id === 'wave')       stepWave();
+}
+function renderSim(ch) {
+  if (ch.id === 'projectile') renderProjectile();
+  if (ch.id === 'gravity')    renderGravity();
+  if (ch.id === 'shm')        renderSHM();
+  if (ch.id === 'wave')       renderWaveCanvas();
+}
+function renderGraph(ch) {
+  if (ch.id === 'projectile') renderProjectileGraph();
+  if (ch.id === 'shm')        renderSHMGraph();
+}
+
+// — Projectile —
+function initProjectile() {
+  const v0=gv('p_v0'), theta=gv('p_theta')*Math.PI/180, y0=gv('p_y0');
+  return {
+    pos:{x:0,y:y0}, vel:{x:v0*Math.cos(theta),y:v0*Math.sin(theta)},
+    t:0, dt:0.004, trail:[], graphData:[], maxY:y0, done:false,
+    params:{ g:gv('p_g'), mass:gv('p_mass'), air:tc('p_air'), cd:gv('p_cd'), rho:gv('p_rho'), r:gv('p_r') }
+  };
+}
+function stepProjectile() {
+  const s=simState, p=s.params;
+  const A=Math.PI*p.r*p.r, spd=Math.sqrt(s.vel.x**2+s.vel.y**2);
+  let ax=0, ay=-p.g;
+  if(p.air && spd>0){ const drag=0.5*p.rho*p.cd*A*spd; ax-=(drag/p.mass)*s.vel.x; ay-=(drag/p.mass)*s.vel.y; }
+  s.vel.x+=ax*s.dt; s.vel.y+=ay*s.dt;
+  s.pos.x+=s.vel.x*s.dt; s.pos.y+=s.vel.y*s.dt; s.t+=s.dt;
+  if(s.pos.y>s.maxY) s.maxY=s.pos.y;
+  s.trail.push({x:s.pos.x,y:s.pos.y});
+  s.graphData.push({t:s.t,y:s.pos.y});
+  if(s.pos.y<=p.r+0.01){
+    s.pos.y=p.r+0.01; s.done=true;
+    const vf=Math.sqrt(s.vel.x**2+s.vel.y**2);
+    setRes('pr_maxh', s.maxY.toFixed(2)+' মি');
+    setRes('pr_range', s.pos.x.toFixed(2)+' মি');
+    setRes('pr_time', s.t.toFixed(2)+' সে');
+    setRes('pr_vf', vf.toFixed(2)+' মি/সে');
+  }
+}
+function renderProjectile() {
+  const ctx=getCtx(); if(!ctx) return;
+  const s=simState; if(!s) return;
+  const W=ctx.canvas.width, H=ctx.canvas.height;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#f0f9ff'; ctx.fillRect(0,0,W,H);
+  // grid + ground
+  const vp=projVP(s,W,H);
+  drawProjGround(ctx,W,H,vp);
+  // trail
+  if(s.trail.length>1){
+    for(let i=1;i<s.trail.length;i++){
+      const a=0.15+0.6*(i/s.trail.length);
+      ctx.beginPath();
+      ctx.moveTo(wx(s.trail[i-1].x,vp),wy(s.trail[i-1].y,vp));
+      ctx.lineTo(wx(s.trail[i].x,vp),wy(s.trail[i].y,vp));
+      ctx.strokeStyle=`rgba(37,99,235,${a})`; ctx.lineWidth=1.5; ctx.stroke();
+    }
+  }
+  const bx=wx(s.pos.x,vp), by=wy(s.pos.y,vp);
+  const br=Math.max(s.params.r*vp.sc, 5);
+  const g=ctx.createRadialGradient(bx-br*.3,by-br*.3,br*.1,bx,by,br);
+  g.addColorStop(0,'#bfdbfe'); g.addColorStop(1,'#2563eb');
+  ctx.beginPath(); ctx.arc(bx,by,br,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
+  if(!s.done){ drawArrow(ctx,bx,by,bx+s.vel.x*.1*vp.sc,by-s.vel.y*.1*vp.sc,'#7c3aed',2); }
+  ctx.fillStyle='#94a3b8'; ctx.font='11px Courier New'; ctx.fillText('t = '+s.t.toFixed(2)+' সে', 12,18);
+}
+function projVP(s,W,H){
+  const pad=0.12;
+  const maxX=Math.max(...s.trail.map(p=>p.x),1);
+  const maxY=Math.max(s.maxY,0.5);
+  const sc=Math.min(W*(1-pad*2)/(maxX+0.5), H*(1-pad*2)/(maxY+0.5));
+  return {sc, ox:W*pad, oy:H*(1-pad)};
+}
+function drawProjGround(ctx,W,H,vp){
+  ctx.fillStyle='#e0f2fe'; ctx.fillRect(0,wy(0,vp),W,H);
+  ctx.beginPath(); ctx.moveTo(0,wy(0,vp)); ctx.lineTo(W,wy(0,vp));
+  ctx.strokeStyle='#7dd3fc'; ctx.lineWidth=2; ctx.stroke();
+}
+function renderProjectileGraph(){
+  const ctx=getGCtx(); if(!ctx||!simState) return;
+  const data=simState.graphData;
+  drawLineGraph(ctx, data.map(d=>d.t), data.map(d=>d.y), '#2563eb', 'সময় →', 'উচ্চতা →');
+}
+
+// — Gravity —
+function initGravity(){
+  const G=6.674e-11, M=gv('g_M')*1e24, r=gv('g_r')*1e6;
+  const v=Math.sqrt(G*M/r);
+  return { angle:0, r, M, v, t:0, dt:200, trail:[], done:false };
+}
+function stepGravity(){
+  const s=simState, G=6.674e-11;
+  const omega=s.v/s.r;
+  s.angle+=omega*s.dt; s.t+=s.dt;
+  s.trail.push({a:s.angle});
+  if(s.trail.length>360) s.trail.shift();
+}
+function renderGravity(){
+  const ctx=getCtx(); if(!ctx||!simState) return;
+  const s=simState;
+  const W=ctx.canvas.width, H=ctx.canvas.height;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#0f172a'; ctx.fillRect(0,0,W,H);
+  // stars
+  ctx.fillStyle='rgba(255,255,255,0.5)';
+  for(let i=0;i<60;i++){ const sx=(i*137)%W, sy=(i*97)%H; ctx.fillRect(sx,sy,1,1); }
+  const cx=W/2, cy=H/2, maxR=Math.min(W,H)*0.38;
+  // earth
+  const eg=ctx.createRadialGradient(cx-8,cy-8,4,cx,cy,28);
+  eg.addColorStop(0,'#60a5fa'); eg.addColorStop(1,'#1d4ed8');
+  ctx.beginPath(); ctx.arc(cx,cy,28,0,Math.PI*2); ctx.fillStyle=eg; ctx.fill();
+  // orbit ring
+  ctx.beginPath(); ctx.arc(cx,cy,maxR,0,Math.PI*2);
+  ctx.strokeStyle='rgba(148,163,184,0.2)'; ctx.lineWidth=1; ctx.stroke();
+  // trail
+  s.trail.forEach((p,i)=>{
+    const tx=cx+maxR*Math.cos(p.a), ty=cy+maxR*Math.sin(p.a);
+    ctx.beginPath(); ctx.arc(tx,ty,2,0,Math.PI*2);
+    ctx.fillStyle=`rgba(251,191,36,${0.1+0.5*(i/s.trail.length)})`; ctx.fill();
+  });
+  // satellite
+  const sx=cx+maxR*Math.cos(s.angle), sy=cy+maxR*Math.sin(s.angle);
+  ctx.beginPath(); ctx.arc(sx,sy,7,0,Math.PI*2);
+  ctx.fillStyle='#fbbf24'; ctx.fill();
+  // gravity arrow
+  const dx=cx-sx, dy=cy-sy, dl=Math.sqrt(dx*dx+dy*dy);
+  drawArrow(ctx,sx,sy,sx+dx/dl*22,sy+dy/dl*22,'#f87171',2);
+  // labels
+  ctx.fillStyle='rgba(148,163,184,0.8)'; ctx.font='11px Courier New';
+  ctx.fillText('t = '+(s.t/60).toFixed(1)+' মিনিট',12,18);
+  calcGravityResults(chapters.find(c=>c.id==='gravity'));
+}
+function calcGravityResults(ch){
+  const G=6.674e-11, M=gv('g_M')*1e24, m=gv('g_m'), r=gv('g_r')*1e6;
+  const F=G*M*m/(r*r), v=Math.sqrt(G*M/r), T=2*Math.PI*r/v, g_=G*M/(r*r);
+  setRes('gr_F', F.toExponential(2)+' N');
+  setRes('gr_v', v.toFixed(0)+' মি/সে');
+  setRes('gr_T', (T/60).toFixed(1)+' মিনিট');
+  setRes('gr_g', g_.toFixed(2)+' মি/সে²');
+}
+function drawGravityIdle(ctx,W,H){
+  const cx=W/2, cy=H/2, R=Math.min(W,H)*0.36;
+  ctx.strokeStyle='rgba(148,163,184,0.15)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.stroke();
+  const eg=ctx.createRadialGradient(cx-6,cy-6,3,cx,cy,22);
+  eg.addColorStop(0,'#60a5fa'); eg.addColorStop(1,'#1d4ed8');
+  ctx.beginPath(); ctx.arc(cx,cy,22,0,Math.PI*2); ctx.fillStyle=eg; ctx.fill();
+  ctx.beginPath(); ctx.arc(cx+R,cy,7,0,Math.PI*2); ctx.fillStyle='#fbbf24'; ctx.fill();
+}
+
+// — SHM —
+function initSHM(){
+  const k=gv('s_k'), m=gv('s_m'), A=gv('s_A'), b=gv('s_damp');
+  const w0=Math.sqrt(k/m), wd=Math.sqrt(Math.max(0,w0*w0-(b/(2*m))**2));
+  setRes('sr_T', (2*Math.PI/Math.max(wd,0.001)).toFixed(3)+' সে');
+  setRes('sr_f', (Math.max(wd,0.001)/(2*Math.PI)).toFixed(3)+' Hz');
+  setRes('sr_w', w0.toFixed(3)+' rad/s');
+  setRes('sr_Emax', (0.5*k*A*A).toFixed(3)+' J');
+  return { x:A, v:0, t:0, dt:0.01, trail:[], graphData:[], done:false,
+    params:{k,m,A,b} };
+}
+function stepSHM(){
+  const s=simState, p=s.params;
+  const a=(-p.k*s.x - p.b*s.v)/p.m;
+  s.v+=a*s.dt; s.x+=s.v*s.dt; s.t+=s.dt;
+  s.trail.push({x:s.x,t:s.t});
+  s.graphData.push({t:s.t,y:s.x});
+  if(s.t>20) s.done=true;
+}
+function renderSHM(){
+  const ctx=getCtx(); if(!ctx||!simState) return;
+  const s=simState;
+  const W=ctx.canvas.width, H=ctx.canvas.height;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#fafbff'; ctx.fillRect(0,0,W,H);
+  const cx=W*0.55, cy=H/2, A=s.params.A, scale=Math.min(H*0.35/A, 80);
+  // spring
+  const wallX=W*0.12, massW=34, massH=34;
+  const massX=cx+s.x*scale, massY=cy;
+  drawSpring(ctx,wallX,cy,massX-massW/2,cy,'#94a3b8',18);
+  // wall
+  ctx.fillStyle='#cbd5e1'; ctx.fillRect(wallX-8,cy-50,8,100);
+  // hatch
+  ctx.strokeStyle='#94a3b8'; ctx.lineWidth=1;
+  for(let i=-5;i<5;i++){ ctx.beginPath(); ctx.moveTo(wallX-8,cy+i*10); ctx.lineTo(wallX-16,cy+i*10+8); ctx.stroke(); }
+  // ground line
+  ctx.beginPath(); ctx.moveTo(wallX-16,cy+50); ctx.lineTo(W-20,cy+50);
+  ctx.strokeStyle='#e2e8f0'; ctx.lineWidth=1; ctx.stroke();
+  // equilibrium
+  ctx.beginPath(); ctx.moveTo(cx,cy-H*0.35); ctx.lineTo(cx,cy+H*0.35);
+  ctx.strokeStyle='rgba(34,197,94,0.4)'; ctx.setLineDash([4,4]); ctx.lineWidth=1; ctx.stroke();
+  ctx.setLineDash([]);
+  // mass
+  const mg=ctx.createLinearGradient(massX-massW/2,massY-massH/2,massX+massW/2,massY+massH/2);
+  mg.addColorStop(0,'#a78bfa'); mg.addColorStop(1,'#7c3aed');
+  ctx.fillStyle=mg;
+  ctx.beginPath(); ctx.roundRect(massX-massW/2,massY-massH/2,massW,massH,6); ctx.fill();
+  ctx.fillStyle='#fff'; ctx.font='bold 11px Hind Siliguri'; ctx.textAlign='center';
+  ctx.fillText('m',massX,massY+4); ctx.textAlign='left';
+  // displacement arrow
+  if(Math.abs(s.x)>0.01) drawArrow(ctx,cx,cy+50,massX,cy+50,'#7c3aed',2);
+  ctx.fillStyle='#94a3b8'; ctx.font='11px Courier New';
+  ctx.fillText('x = '+s.x.toFixed(3)+' মি  t = '+s.t.toFixed(2)+' সে',12,18);
+}
+function drawSHMIdle(ctx,W,H){
+  const cx=W*0.55, cy=H/2;
+  drawSpring(ctx,W*0.12,cy,cx-17,cy,'#94a3b8',18);
+  ctx.fillStyle='#cbd5e1'; ctx.fillRect(W*0.12-8,cy-50,8,100);
+  ctx.fillStyle='#a78bfa'; ctx.beginPath(); ctx.roundRect(cx-17,cy-17,34,34,6); ctx.fill();
+}
+function renderSHMGraph(){
+  const ctx=getGCtx(); if(!ctx||!simState) return;
+  const data=simState.graphData;
+  drawLineGraph(ctx, data.map(d=>d.t), data.map(d=>d.y), '#7c3aed','সময় →','সরণ →');
+}
+function calcSHMResults(ch){
+  const k=gv('s_k'),m=gv('s_m'),A=gv('s_A'),b=gv('s_damp');
+  const w0=Math.sqrt(k/m), wd=Math.sqrt(Math.max(0,w0*w0-(b/(2*m))**2));
+  setRes('sr_T', (2*Math.PI/Math.max(wd,0.001)).toFixed(3)+' সে');
+  setRes('sr_f', (Math.max(wd,0.001)/(2*Math.PI)).toFixed(3)+' Hz');
+  setRes('sr_w', w0.toFixed(3)+' rad/s');
+  setRes('sr_Emax', (0.5*k*A*A).toFixed(3)+' J');
+}
+function drawSpring(ctx,x1,y1,x2,y2,color,coils){
+  const dx=(x2-x1)/coils, amp=10;
+  ctx.beginPath(); ctx.moveTo(x1,y1);
+  for(let i=0;i<coils;i++){
+    ctx.lineTo(x1+dx*(i+.25),y1-amp);
+    ctx.lineTo(x1+dx*(i+.75),y1+amp);
+  }
+  ctx.lineTo(x2,y2);
+  ctx.strokeStyle=color; ctx.lineWidth=2; ctx.stroke();
+}
+
+// — Wave —
+function initWave(){ return { t:0, dt:0.016, done:false }; }
+function stepWave(){ simState.t+=simState.dt; }
+function renderWaveCanvas(){
+  const ctx=getCtx(); if(!ctx||!simState) return;
+  const W=ctx.canvas.width, H=ctx.canvas.height;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#f0f9ff'; ctx.fillRect(0,0,W,H);
+  const A=gv('w_A'), lam=gv('w_lam'), f=gv('w_f');
+  const k=2*Math.PI/lam, omega=2*Math.PI*f, t=simState.t;
+  const cy=H/2, scY=Math.min(H*0.3/Math.max(A,0.1),80);
+  // axis
+  ctx.beginPath(); ctx.moveTo(0,cy); ctx.lineTo(W,cy);
+  ctx.strokeStyle='#e2e8f0'; ctx.lineWidth=1; ctx.stroke();
+  // wave 1
+  ctx.beginPath();
+  for(let px=0;px<W;px++){
+    const xw=px/W*lam*4;
+    const y=cy - A*Math.sin(k*xw - omega*t)*scY;
+    px===0 ? ctx.moveTo(px,y) : ctx.lineTo(px,y);
+  }
+  ctx.strokeStyle='#2563eb'; ctx.lineWidth=2.5; ctx.stroke();
+  // wave 2 (interference)
+  if(tc('w_two')){
+    const phi=gv('w_phi')*Math.PI/180;
+    ctx.beginPath();
+    for(let px=0;px<W;px++){
+      const xw=px/W*lam*4;
+      const y=cy - A*Math.sin(k*xw - omega*t + phi)*scY;
+      px===0 ? ctx.moveTo(px,y) : ctx.lineTo(px,y);
+    }
+    ctx.strokeStyle='#f97316'; ctx.lineWidth=2; ctx.setLineDash([4,3]); ctx.stroke();
+    ctx.setLineDash([]);
+    // resultant
+    ctx.beginPath();
+    for(let px=0;px<W;px++){
+      const xw=px/W*lam*4;
+      const y1=A*Math.sin(k*xw - omega*t);
+      const y2=A*Math.sin(k*xw - omega*t + phi);
+      const y=cy-(y1+y2)*scY;
+      px===0 ? ctx.moveTo(px,y) : ctx.lineTo(px,y);
+    }
+    ctx.strokeStyle='#059669'; ctx.lineWidth=2; ctx.stroke();
+    ctx.fillStyle='#94a3b8'; ctx.font='10px Hind Siliguri';
+    ctx.fillText('— নীল: তরঙ্গ ১   -- কমলা: তরঙ্গ ২   — সবুজ: লব্ধি তরঙ্গ', 10, H-10);
+  }
+  ctx.fillStyle='#94a3b8'; ctx.font='11px Courier New';
+  ctx.fillText('t = '+simState.t.toFixed(2)+' সে',12,18);
+  calcWaveResults(chapters.find(c=>c.id==='wave'));
+}
+function calcWaveResults(ch){
+  const A=gv('w_A'),lam=gv('w_lam'),f=gv('w_f');
+  setRes('wr_v', (lam*f).toFixed(2)+' মি/সে');
+  setRes('wr_T', (1/f).toFixed(3)+' সে');
+  setRes('wr_k', (2*Math.PI/lam).toFixed(3)+' rad/মি');
+  setRes('wr_w', (2*Math.PI*f).toFixed(3)+' rad/s');
+}
+function drawWaveIdle(ctx,W,H,ch){
+  const cy=H/2, A=60, lam=W/2, k=2*Math.PI/lam;
+  ctx.beginPath();
+  for(let px=0;px<W;px++){
+    const y=cy-A*Math.sin(k*px);
+    px===0 ? ctx.moveTo(px,y) : ctx.lineTo(px,y);
+  }
+  ctx.strokeStyle='rgba(37,99,235,0.25)'; ctx.lineWidth=2; ctx.stroke();
+}
+
+// ═══════════════════════════════════════════
+//  GENERIC HELPERS
+// ═══════════════════════════════════════════
+function wx(x,vp){ return vp.ox+x*vp.sc; }
+function wy(y,vp){ return vp.oy-y*vp.sc; }
+
+function drawArrow(ctx,x1,y1,x2,y2,color,lw){
+  const dx=x2-x1, dy=y2-y1, len=Math.sqrt(dx*dx+dy*dy);
+  if(len<3) return;
+  ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+  ctx.strokeStyle=color; ctx.lineWidth=lw; ctx.stroke();
+  const ang=Math.atan2(dy,dx);
+  ctx.beginPath();
+  ctx.moveTo(x2,y2);
+  ctx.lineTo(x2-8*Math.cos(ang-.4),y2-8*Math.sin(ang-.4));
+  ctx.lineTo(x2-8*Math.cos(ang+.4),y2-8*Math.sin(ang+.4));
+  ctx.closePath(); ctx.fillStyle=color; ctx.fill();
+}
+
+function drawLineGraph(ctx, xs, ys, color, xLabel, yLabel){
+  const W=ctx.canvas.width, H=ctx.canvas.height;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#f8faff'; ctx.fillRect(0,0,W,H);
+  if(xs.length<2) return;
+  const pad={l:36,r:12,t:12,b:24};
+  const maxX=Math.max(...xs), maxY=Math.max(...ys.map(Math.abs),0.01)*1.15;
+  const minY=Math.min(...ys,-0.01)*1.15;
+  const tx=x=>pad.l+(x/maxX)*(W-pad.l-pad.r);
+  const ty=y=>H-pad.b-((y-minY)/(maxY-minY))*(H-pad.t-pad.b);
+  // grid
+  ctx.strokeStyle='#e2e8f0'; ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const yv=minY+i*(maxY-minY)/4;
+    ctx.beginPath(); ctx.moveTo(pad.l,ty(yv)); ctx.lineTo(W-pad.r,ty(yv)); ctx.stroke();
+    ctx.fillStyle='#94a3b8'; ctx.font='9px Courier New'; ctx.fillText(yv.toFixed(1),2,ty(yv)+3);
+  }
+  // axis
+  ctx.strokeStyle='#cbd5e1'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(pad.l,pad.t); ctx.lineTo(pad.l,H-pad.b); ctx.lineTo(W-pad.r,H-pad.b); ctx.stroke();
+  // zero line
+  ctx.beginPath(); ctx.moveTo(pad.l,ty(0)); ctx.lineTo(W-pad.r,ty(0));
+  ctx.strokeStyle='rgba(148,163,184,0.5)'; ctx.setLineDash([3,3]); ctx.stroke(); ctx.setLineDash([]);
+  // curve
+  ctx.beginPath(); ctx.moveTo(tx(xs[0]),ty(ys[0]));
+  for(let i=1;i<xs.length;i++) ctx.lineTo(tx(xs[i]),ty(ys[i]));
+  ctx.strokeStyle=color; ctx.lineWidth=2; ctx.stroke();
+  // axis labels
+  ctx.fillStyle='#94a3b8'; ctx.font='9px Courier New';
+  ctx.fillText('0',pad.l-6,H-pad.b+12);
+  ctx.fillText(maxX.toFixed(1),W-pad.r-20,H-pad.b+12);
+}
+
+
+// ═══════════════════════════════════════════
+//  THEMES
+// ═══════════════════════════════════════════
+const themes = [
+  {
+    id: 'light',
+    name: 'লাইট',
+    desc: 'ডিফল্ট উজ্জ্বল',
+    preview: ['#2563eb','#7c3aed','#f0f4ff'],
+    vars: {
+      '--bg':'#f0f4ff','--white':'#ffffff','--panel':'#f8faff',
+      '--border':'#dde3f0','--accent':'#2563eb','--accent2':'#7c3aed',
+      '--text':'#1e293b','--subtext':'#475569','--muted':'#94a3b8',
+      '--shadow':'0 2px 12px rgba(37,99,235,0.08)',
+      '--shadow-lg':'0 8px 32px rgba(37,99,235,0.13)',
+    }
+  },
+  {
+    id: 'dark',
+    name: 'ডার্ক',
+    desc: 'রাতের থিম',
+    preview: ['#38bdf8','#818cf8','#0f172a'],
+    vars: {
+      '--bg':'#0f172a','--white':'#1e293b','--panel':'#0d1b2e',
+      '--border':'#1e3a5f','--accent':'#38bdf8','--accent2':'#818cf8',
+      '--text':'#e2e8f0','--subtext':'#94a3b8','--muted':'#475569',
+      '--shadow':'0 2px 12px rgba(0,0,0,0.3)',
+      '--shadow-lg':'0 8px 32px rgba(0,0,0,0.4)',
+    }
+  },
+  {
+    id: 'blue',
+    name: 'নীল',
+    desc: 'গভীর নীল',
+    preview: ['#0ea5e9','#06b6d4','#e0f2fe'],
+    vars: {
+      '--bg':'#e0f2fe','--white':'#ffffff','--panel':'#f0f9ff',
+      '--border':'#bae6fd','--accent':'#0284c7','--accent2':'#0891b2',
+      '--text':'#0c4a6e','--subtext':'#075985','--muted':'#7dd3fc',
+      '--shadow':'0 2px 12px rgba(2,132,199,0.1)',
+      '--shadow-lg':'0 8px 32px rgba(2,132,199,0.18)',
+    }
+  },
+  {
+    id: 'green',
+    name: 'সবুজ',
+    desc: 'প্রকৃতির রঙ',
+    preview: ['#10b981','#34d399','#d1fae5'],
+    vars: {
+      '--bg':'#d1fae5','--white':'#ffffff','--panel':'#ecfdf5',
+      '--border':'#a7f3d0','--accent':'#059669','--accent2':'#10b981',
+      '--text':'#064e3b','--subtext':'#065f46','--muted':'#6ee7b7',
+      '--shadow':'0 2px 12px rgba(5,150,105,0.1)',
+      '--shadow-lg':'0 8px 32px rgba(5,150,105,0.18)',
+    }
+  },
+  {
+    id: 'purple',
+    name: 'বেগুনি',
+    desc: 'রাজকীয় রঙ',
+    preview: ['#8b5cf6','#a78bfa','#ede9fe'],
+    vars: {
+      '--bg':'#ede9fe','--white':'#ffffff','--panel':'#f5f3ff',
+      '--border':'#ddd6fe','--accent':'#7c3aed','--accent2':'#8b5cf6',
+      '--text':'#2e1065','--subtext':'#4c1d95','--muted':'#c4b5fd',
+      '--shadow':'0 2px 12px rgba(124,58,237,0.1)',
+      '--shadow-lg':'0 8px 32px rgba(124,58,237,0.18)',
+    }
+  },
+  {
+    id: 'orange',
+    name: 'কমলা',
+    desc: 'উষ্ণ শক্তি',
+    preview: ['#f97316','#fb923c','#fff7ed'],
+    vars: {
+      '--bg':'#fff7ed','--white':'#ffffff','--panel':'#fffbf5',
+      '--border':'#fed7aa','--accent':'#ea580c','--accent2':'#f97316',
+      '--text':'#431407','--subtext':'#7c2d12','--muted':'#fdba74',
+      '--shadow':'0 2px 12px rgba(234,88,12,0.1)',
+      '--shadow-lg':'0 8px 32px rgba(234,88,12,0.18)',
+    }
+  },
+];
+
+let currentTheme = 'light';
+
+function applyTheme(themeId) {
+  const theme = themes.find(t => t.id === themeId);
+  if (!theme) return;
+  currentTheme = themeId;
+  const root = document.documentElement;
+  Object.entries(theme.vars).forEach(([k, v]) => root.style.setProperty(k, v));
+  buildThemeGrid();
+}
+
+function buildThemeGrid() {
+  const grid = document.getElementById('themeGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  themes.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'theme-card' + (t.id === currentTheme ? ' active' : '');
+    card.innerHTML =
+      '<div class="theme-preview" style="background:' + t.preview[2] + '">' +
+        '<div class="tp-dot" style="background:' + t.preview[0] + '"></div>' +
+        '<div class="tp-line" style="background:' + t.preview[1] + '"></div>' +
+        '<div class="tp-dot" style="background:' + t.preview[0] + '"></div>' +
+      '</div>' +
+      '<span class="theme-name">' + t.name + '</span>' +
+      '<span class="theme-desc">' + t.desc + '</span>';
+    card.addEventListener('click', () => applyTheme(t.id));
+    grid.appendChild(card);
+  });
+}
+
+function openThemePanel() {
+  closeDropdown();
+  buildThemeGrid();
+  document.getElementById('themePanelOverlay').classList.add('open');
+}
+
+function closeThemePanel() {
+  document.getElementById('themePanelOverlay').classList.remove('open');
+}
+
+document.getElementById('closePanelBtn').addEventListener('click', closeThemePanel);
+document.getElementById('themePanelOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeThemePanel();
+});
+
+// ═══════════════════════════════════════════
+//  3-DOT MENU
+// ═══════════════════════════════════════════
+
+let enabledChapters = new Set(['projectile', 'gravity', 'shm', 'wave']);
+
+function buildDropdown() {
+  const container = document.getElementById('dropdownItems');
+  container.innerHTML = '';
+
+  const allChapters = [
+    ...chapters,
+    { id:'thermo',  num:'অধ্যায় ৯',  title:'তাপগতিবিদ্যা',       sub:'তাপ ও তাপমাত্রা',              icon:'\uD83C\uDF21\uFE0F', color:'#dc2626', tag:'তাপ',       locked:true },
+    { id:'electro', num:'অধ্যায় ১০', title:'তড়িৎ ও চুম্বকত্ব',   sub:'কুলম্বের সূত্র, ক্যাপাসিটর',   icon:'⚡',  color:'#d97706', tag:'তড়িৎ',     locked:true },
+    { id:'optics',  num:'অধ্যায় ১১', title:'আলোকবিজ্ঞান',         sub:'প্রতিফলন, প্রতিসরণ, লেন্স',  icon:'🔭', color:'#0891b2', tag:'আলো',       locked:true },
+    { id:'modern',  num:'অধ্যায় ১২', title:'আধুনিক পদার্থবিজ্ঞান', sub:'ফটোইলেক্ট্রিক, কোয়ান্টাম',  icon:'⚛️', color:'#7c3aed', tag:'কোয়ান্টাম', locked:true },
+  ];
+
+  allChapters.forEach(ch => {
+    const isEnabled = enabledChapters.has(ch.id) && !ch.locked;
+    const isActive  = ch.id === currentChId;
+
+    const btn = document.createElement('button');
+    btn.className = 'dropdown-item' + (isActive ? ' active' : '') + (isEnabled ? '' : ' locked');
+
+    btn.innerHTML =
+      '<div class="di-icon" style="background:' + ch.color + '18;">' + ch.icon + '</div>' +
+      '<div class="di-text">' +
+        '<div class="di-num">' + ch.num + '</div>' +
+        '<div class="di-title">' + ch.title + '</div>' +
+        '<div class="di-sub">' + ch.sub + '</div>' +
+      '</div>' +
+      (isEnabled
+        ? '<span class="di-badge">' + ch.tag + '</span>' + (isActive ? '<span class="di-check">✓</span>' : '')
+        : '<span class="di-badge locked-badge">🔒 শীঘ্রই</span>');
+
+    if (isEnabled) {
+      btn.addEventListener('click', () => {
+        closeDropdown();
+        switchChapter(ch.id);
+      });
+    }
+
+    container.appendChild(btn);
+  });
+}
+
+function openDropdown() {
+  buildDropdown();
+  document.getElementById('chapterDropdown').classList.add('open');
+  document.getElementById('threeDotBtn').classList.add('open');
+}
+
+function closeDropdown() {
+  document.getElementById('chapterDropdown').classList.remove('open');
+  document.getElementById('threeDotBtn').classList.remove('open');
+}
+
+document.getElementById('threeDotBtn').addEventListener('click', function(e) {
+  e.stopPropagation();
+  var dd = document.getElementById('chapterDropdown');
+  if (dd.classList.contains('open')) closeDropdown();
+  else openDropdown();
+});
+
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('threeDotWrap').contains(e.target)) closeDropdown();
+});
+
+document.getElementById('openSettingsBtn').addEventListener('click', function(e) {
+  e.stopPropagation();
+  openThemePanel();
+});
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+buildMainArea(chapters.find(c => c.id === currentChId));
+</script>
+</body>
+</html>
